@@ -3,3 +3,4 @@ tests/venv/
 PyDMXControl.egg-info/
 build/
 dist/
+**/__pycache__
