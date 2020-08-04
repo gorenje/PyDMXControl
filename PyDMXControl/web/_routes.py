@@ -89,7 +89,15 @@ def channel_val(fid: int, cid: int, val: int):
 
     this_fixture.set_channel(chan, val)
     val = fixture_channel_value(this_fixture, chan)
-    data = {"message": "Channel {} {} updated to {}".format(chan + 1, this_fixture.channels[chan + 1]["name"], val),
+
+    channel = this_fixture.channels[chan + 1]
+    if channel != None:
+        channel = channel["name"]
+    else:
+        channel = "Unknown"
+
+    data = {"message": "Channel {} {} updated to {}".format(
+        chan + 1, channel, val),
             "elements": {
                 "channel-{}-value".format(chan): val,
                 "value": val,
@@ -97,6 +105,7 @@ def channel_val(fid: int, cid: int, val: int):
             }}
     if chan == this_fixture.get_channel_id("dimmer"):
         data["elements"]["intensity_value"] = val
+
     return jsonify(data), 200
 
 
